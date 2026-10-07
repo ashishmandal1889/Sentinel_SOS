@@ -143,37 +143,27 @@ export default function Home() {
     <main className="sentinel-home">
 
       {/* HERO SECTION */}
-      <section
-        className="hero-section"
-        id="home"
-        style={{
-          backgroundImage: `linear-gradient(
-            rgba(10, 20, 35, 0.55),
-            rgba(10, 20, 35, 0.75)
-          ), url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+      <section className="hero-section" id="home">
         {/* NAVBAR */}
         <header className="site-header">
           <div className="header-inner">
 
-            <Link
-              to="/"
-              className="brand"
-              onClick={closeMenu}
-            >
-              <span className="brand-icon">
-                <Shield size={31} strokeWidth={2.8} />
-                <span className="brand-dot" />
-              </span>
+            <div className="header-brand-wrap">
+              <Link
+                to="/"
+                className="brand"
+                onClick={closeMenu}
+              >
+                <span className="brand-icon">
+                  <Shield size={31} strokeWidth={2.8} />
+                  <span className="brand-dot" />
+                </span>
 
-              <span>
-                SENTINEL<span className="brand-red">SOS</span>
-              </span>
-            </Link>
+                <span>
+                  SENTINEL<span className="brand-red">SOS</span>
+                </span>
+              </Link>
+            </div>
 
             {/* Mobile menu button */}
             <button
@@ -186,7 +176,7 @@ export default function Home() {
               {menuOpen ? <X size={25} /> : <Menu size={25} />}
             </button>
 
-            {/* Navigation links */}
+            {/* Navigation links (Centered in top middle) */}
             <nav
               id="main-navigation"
               className={`main-nav ${menuOpen ? "nav-open" : ""}`}
@@ -223,6 +213,29 @@ export default function Home() {
                 Contact
               </a>
 
+              <div className="mobile-only-action">
+                {isLoggedIn ? (
+                  <button
+                    type="button"
+                    className="header-download"
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </button>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="header-download"
+                    onClick={closeMenu}
+                  >
+                    Sign In
+                  </Link>
+                )}
+              </div>
+            </nav>
+
+            {/* Header Right Action Button */}
+            <div className="header-right">
               {isLoggedIn ? (
                 <button
                   type="button"
@@ -240,7 +253,8 @@ export default function Home() {
                   Sign In
                 </Link>
               )}
-            </nav>
+            </div>
+
           </div>
         </header>
 
