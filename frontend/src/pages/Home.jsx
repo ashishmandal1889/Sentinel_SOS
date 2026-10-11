@@ -13,12 +13,10 @@ import {
   Play,
   Menu,
   X,
-  CheckCircle,
   Image as ImageIcon,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
-import heroImage from "../assets/images/hero.jpg";
 
 // Features
 const features = [
