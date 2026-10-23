@@ -1,0 +1,29 @@
+"""
+Sentinel SOS - User Repository.
+
+Handles relational database queries and persistence for User accounts.
+"""
+
+from typing import Optional
+from sqlalchemy.orm import Session
+from app.models.sql.user import User
+
+
+class UserRepository:
+    def __init__(self, db: Session):
+        self.db = db
+
+    def get_by_id(self, user_id: str) -> Optional[User]:
+        return self.db.query(User).filter(User.id == user_id).first()
+
+    def get_by_email(self, email: str) -> Optional[User]:
+        return self.db.query(User).filter(User.email == email.lower()).first()
+
+    def get_by_phone(self, phone: str) -> Optional[User]:
+        return self.db.query(User).filter(User.phone_number == phone).first()
+
+    def create(self, user: User) -> User:
+        self.db.add(user)
+        self.db.commit()
+        self.db.refresh(user)
+        return user
