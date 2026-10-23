@@ -1,0 +1,2 @@
+Generic single-database configuration with an async/sync engine.
+Use `alembic revision --autogenerate -m "create tables"` and `alembic upgrade head`.

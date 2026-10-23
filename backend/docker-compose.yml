@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentinel_sos_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - SENTINEL_APP_NAME=Sentinel SOS Emergency Response API
+      - SENTINEL_ENV=production
+      - SENTINEL_API_PREFIX=/api/v1
+      - SQL_DATABASE_URL=postgresql://sentinel_user:sentinel_secret@postgres:5432/sentinel_sos
+      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_DATABASE=sentinel_sos
+      - AUTH_SECRET_KEY=replace-with-a-very-long-random-secret-key-for-prod
+      - AUTH_TOKEN_EXPIRE_MINUTES=60
+      - SMS_PROVIDER=mock
+      - LLM_PROVIDER=mock
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+    volumes:
+      - .:/app
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: sentinel_sos_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sentinel_user
+      POSTGRES_PASSWORD: sentinel_secret
+      POSTGRES_DB: sentinel_sos
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sentinel_user -d sentinel_sos"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mongo:
+    image: mongo:7.0
+    container_name: sentinel_sos_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  postgres_data:
+  mongo_data:
