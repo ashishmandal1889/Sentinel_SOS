@@ -1,0 +1,24 @@
+SentinelSOS Fall-Detection Evaluation
+=====================================
+Dataset rows: 96800
+Valid windows: 241
+Window size: 400
+Training windows: 180
+Testing windows: 61
+Accuracy: 1.0000
+
+Confusion matrix (labels 0, 1):
+[[44  0]
+ [ 0 17]]
+
+Classification report:
+                 precision    recall  f1-score   support
+
+normal_activity       1.00      1.00      1.00        44
+   fall_related       1.00      1.00      1.00        17
+
+       accuracy                           1.00        61
+      macro avg       1.00      1.00      1.00        61
+   weighted avg       1.00      1.00      1.00        61
+
+Limitation: Random window splitting may place related activity windows in both sets. Grouped validation and real-world testing are still needed.

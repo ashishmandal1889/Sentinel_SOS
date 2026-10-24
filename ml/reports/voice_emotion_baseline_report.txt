@@ -1,0 +1,17 @@
+Dataset: RAVDESS
+Total recordings: 1,440
+Number of actors: 24
+Audio features: 84
+Evaluation: speaker-independent, 18 training actors and six test actors
+Best model: SVM
+Test accuracy: 45.00%
+Macro F1-score: 0.4470
+Limitation: acted emotional speech; real-world emergency performance has not been established
+**Fall Detection Experiment — Initial Verification**
+
+- Model: Random Forest Classifier.
+- Dataset: `acc_gyr.csv`, containing 96,800 rows and six sensor features plus a label.
+- Input: 400 sensor readings per window.
+- Feature extraction: 24 statistical features comprising the mean, standard deviation, minimum, and maximum of each accelerometer and gyroscope axis.
+- Verification tests: One window labelled `fall` was predicted as fall-related activity; one window labelled `walk` was predicted as normal activity.
+- Limitation: These two checks verify basic pipeline behaviour only. They do not establish generalization, real-world accuracy, or emergency-detection reliability.
